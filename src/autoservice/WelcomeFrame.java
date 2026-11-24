@@ -3,9 +3,13 @@ package autoservice;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.security.MessageDigest;
+import java.util.Properties;
 
 public class WelcomeFrame extends JFrame {
     private final ServiceCenter center;
@@ -253,11 +257,20 @@ public class WelcomeFrame extends JFrame {
                 JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
         if (choice != JOptionPane.OK_OPTION) return;
 
-        String configuredEmail = System.getenv("AUTOSERVICE_OWNER_EMAIL");
-        String configuredPassword = System.getenv("AUTOSERVICE_OWNER_PASSWORD");
+        Properties credentials = new Properties();
+        try (BufferedReader reader = Files.newBufferedReader(
+                Path.of("owner-credentials.properties"), StandardCharsets.UTF_8)) {
+            credentials.load(reader);
+        } catch (IOException e) {
+            showError("Could not read owner-credentials.properties: " + e.getMessage());
+            return;
+        }
+
+        String configuredEmail = credentials.getProperty("owner.email");
+        String configuredPassword = credentials.getProperty("owner.password");
         if (configuredEmail == null || configuredEmail.isBlank()
                 || configuredPassword == null || configuredPassword.isEmpty()) {
-            showError("Owner login is not configured. Set AUTOSERVICE_OWNER_EMAIL and AUTOSERVICE_OWNER_PASSWORD before starting the application.");
+            showError("Owner login is not configured. Edit owner-credentials.properties in the project folder.");
             return;
         }
 
