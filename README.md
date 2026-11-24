@@ -28,29 +28,6 @@ All money values are in Bangladeshi Taka (Tk).
 
 Run `autoservice.Main` from your IDE to open the desktop window. The application stores records in `service-center-data.csv` in the working directory. Existing `service-center-data.ser` files are imported automatically the first time.
 
-### Configure the owner login
-
-The owner account is configured outside the source code with these environment variables:
-
-- `AUTOSERVICE_OWNER_EMAIL`
-- `AUTOSERVICE_OWNER_PASSWORD`
-
-In VS Code, add them to the Java launch configuration's `env` object using your own values:
-
-```json
-{
-  "type": "java",
-  "name": "Automobile Service Center",
-  "request": "launch",
-  "mainClass": "autoservice.Main",
-  "env": {
-    "AUTOSERVICE_OWNER_EMAIL": "${env:AUTOSERVICE_OWNER_EMAIL}",
-    "AUTOSERVICE_OWNER_PASSWORD": "${env:AUTOSERVICE_OWNER_PASSWORD}"
-  }
-}
-```
-
-Set those variables in your Windows user environment before starting VS Code, and keep the real credentials private. Customer passwords are stored as salted hashes in the CSV, not as readable passwords. Existing customers without a login can create an account using the same name and email already on file.
 
 ### Compile and launch manually (optional)
 
