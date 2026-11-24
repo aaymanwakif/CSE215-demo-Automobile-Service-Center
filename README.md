@@ -28,6 +28,16 @@ All money values are in Bangladeshi Taka (Tk).
 
 Run `autoservice.Main` from your IDE to open the desktop window. The application stores records in `service-center-data.csv` in the working directory. Existing `service-center-data.ser` files are imported automatically the first time.
 
+### Configure the owner login
+
+Create `owner-credentials.properties` in the project folder and set your local owner credentials:
+
+```properties
+owner.email=your-owner-email
+owner.password=your-owner-password
+```
+
+The file is excluded by `.gitignore`, so it stays out of Git uploads. It is plain text on your computer, not encrypted; protect access to the computer and never commit or upload the file. The app reads it when you open the owner login. Customer passwords are stored as salted hashes in the CSV, not as readable passwords. Existing customers without a login can create an account using the same name and email already on file.
 
 ### Compile and launch manually (optional)
 
@@ -91,6 +101,6 @@ Automobile-Service-Center/
 
 - This is a desktop demo project, not a production workshop system.
 - Data is stored as UTF-8 CSV text in a local `.csv` file.
-- Owner credentials must be configured as environment variables before starting the application.
+- Owner credentials are stored locally in the ignored `owner-credentials.properties` file.
 - The service packages are sample packages defined in `ServiceCenter.addSamplePackages()`.
 - The payroll calculation is a simple demo formula: basic monthly salary + (completed jobs × bonus per job).

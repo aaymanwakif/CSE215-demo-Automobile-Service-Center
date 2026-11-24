@@ -6,6 +6,7 @@ bin/
 # Local application data
 service-center-data.ser
 service-center-data.csv
+/owner-credentials.properties
 
 # IDE files
 .vscode/
