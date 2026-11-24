@@ -1,0 +1,17 @@
+# Java build output
+out/
+bin/
+*.class
+
+# Local application data
+service-center-data.ser
+service-center-data.csv
+
+# IDE files
+.vscode/
+.idea/
+*.iml
+
+# OS files
+.DS_Store
+Thumbs.db
